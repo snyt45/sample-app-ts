@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>ホーム</h1>
+    <h1>共有</h1>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({});
