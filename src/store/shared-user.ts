@@ -61,3 +61,14 @@ export const update = (profile: Profile) => {
   tagetUser.themeColor = profile.themeColor;
   tagetUser.hasAvatar = profile.hasAvatar;
 };
+
+/**
+ * 指定したニックネームの一部に前方一致するユーザーを検索します。
+ * @param partOfNickname 前方一致で検索するユーザーのニックネームの一部
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const searchUsers = (partOfNickname: string) => {
+  return sharedUserStore.sharedUsers.filter((user) =>
+    user.nickname.startsWith(partOfNickname),
+  );
+};
