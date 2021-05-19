@@ -46,6 +46,7 @@ export const sharedUserStore = reactive({
  * 特定ユーザーのプロフィールを更新します。
  * @param profile 更新対象ユーザーのプロフィール
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const update = (profile: Profile) => {
   const filteredUser = sharedUserStore.sharedUsers.filter(
     (user) => user.userId === profile.userId,
@@ -71,4 +72,21 @@ export const searchUsers = (partOfNickname: string) => {
   return sharedUserStore.sharedUsers.filter((user) =>
     user.nickname.startsWith(partOfNickname),
   );
+};
+
+/**
+ * 指定したユーザーのテーマカラーを取得します。
+ * @param userId テーマカラーを取得するユーザーのID
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getThemeColor = (userId: string) => {
+  const defaultColor = '#f44336';
+  const user = sharedUserStore.sharedUsers.find(
+    (user) => user.userId === userId,
+  );
+  if (!user) {
+    return defaultColor;
+  }
+
+  return user.themeColor;
 };
