@@ -1,4 +1,7 @@
+import '@/plugins/composition-api';
+import { reactive } from '@vue/composition-api';
 import { SharedUser } from '@/store/shared-user.model';
+import { Profile } from '@/store/profile.model';
 
 export const sharedUserMockData: SharedUser[] = [
   {
@@ -34,3 +37,27 @@ export const sharedUserMockData: SharedUser[] = [
     display: true,
   },
 ];
+
+export const sharedUserStore = reactive({
+  sharedUsers: sharedUserMockData,
+});
+
+/**
+ * 特定ユーザーのプロフィールを更新します。
+ * @param profile 更新対象ユーザーのプロフィール
+ */
+export const update = (profile: Profile) => {
+  const filteredUser = sharedUserStore.sharedUsers.filter(
+    (user) => user.userId === profile.userId,
+  );
+
+  if (!filteredUser || filteredUser.length === 0) {
+    return;
+  }
+
+  const tagetUser = filteredUser[0];
+  tagetUser.userName = profile.userName;
+  tagetUser.nickname = profile.nickname;
+  tagetUser.themeColor = profile.themeColor;
+  tagetUser.hasAvatar = profile.hasAvatar;
+};
