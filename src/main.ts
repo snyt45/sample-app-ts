@@ -8,6 +8,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '@/plugins/composition-api';
 import '@/plugins/vee-validate';
 import '@/plugins/axios';
+import '@/plugins/vuetify-toast-snackbar';
+import '@/plugins/vuetify-dialog';
 import * as directives from '@/directives';
 import * as components from '@/components';
 
