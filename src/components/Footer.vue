@@ -57,7 +57,7 @@ import {
   toRefs,
   computed,
 } from '@vue/composition-api';
-import { profileStore } from '@/store/profile';
+import { profileStore } from '@/store/profile/profile';
 
 export default defineComponent({
   setup(prop, context) {
@@ -73,7 +73,7 @@ export default defineComponent({
       ],
       // サインインしているユーザー
       signInUser: computed(() => {
-        return profileStore.profile;
+        return profileStore.getProfile;
       }),
     });
     /**
@@ -112,7 +112,7 @@ export default defineComponent({
      * サインアウトします。
      */
     const signOut = () => {
-      profileStore.profile = null;
+      profileStore.clearProfile();
       routerPush('/sign-in');
     };
 
