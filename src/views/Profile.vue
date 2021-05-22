@@ -84,6 +84,9 @@
             </v-card-actions>
           </ValidationObserver>
         </v-card>
+        <v-overlay :value="editUserNameDialogOverlay">
+          <v-progress-circular color="primary" indeterminate size="64" />
+        </v-overlay>
       </v-dialog>
       <v-text-field
         v-model="profile.nickname"
@@ -164,6 +167,7 @@ import { profileStore } from '@/store/profile/profile';
 export default defineComponent({
   setup() {
     const state = reactive({
+      editUserNameDialogOverlay: false,
       userNameValidationObserver: null as InstanceType<
         typeof ValidationObserver
       > | null,
@@ -287,15 +291,17 @@ export default defineComponent({
      * ユーザー名を保存します。
      */
     const saveUserName = async () => {
-      try {
-        if (state.newUserName) {
+      if (state.newUserName) {
+        state.editUserNameDialogOverlay = true;
+        try {
           await profileStore.updateUserNameAsync(state.newUserName);
+        } finally {
+          // eslint-disable-next-line require-atomic-updates
+          state.editUserNameDialogOverlay = false;
         }
-        // eslint-disable-next-line require-atomic-updates
-        state.isOpenEditUserNameDialog = false;
-      } catch (error) {
-        console.log('error: ', error.response?.data?.title);
       }
+      // eslint-disable-next-line require-atomic-updates
+      state.isOpenEditUserNameDialog = false;
     };
     /**
      * ニックネームの編集を開始します。
